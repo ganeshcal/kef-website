@@ -7,6 +7,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<!-- EmailJS SDK -->
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script>emailjs.init('YOUR_PUBLIC_KEY');</script>
 <style>
 /* ═══════════════════════════════════════
    RESET & TOKENS
@@ -901,22 +904,51 @@ function fallback(text,cb){
   document.body.removeChild(ta);
 }
 
-/* ─── FORM SUBMIT ─── */
+/* ─── FORM SUBMIT via EmailJS ─── */
 function submitForm(e, type){
   e.preventDefault();
   const form   = e.target;
+  const btn    = form.querySelector('.fsubmit');
   const fields = form.querySelectorAll('input,select,textarea');
-  let body = type==='volunteer'
-    ? 'New KEF Volunteer Registration\n\n'
-    : 'New KEF Collaboration Proposal\n\n';
+
+  // Build a readable message body
+  let body = '';
   fields.forEach(f=>{
     const lbl = f.closest('.fgrp')?.querySelector('label')?.textContent?.replace('*','').trim() || f.name;
-    if(f.value) body += lbl+': '+f.value+'\n';
+    if(f.value) body += lbl + ': ' + f.value + '\n';
   });
-  const sub = type==='volunteer' ? 'KEF Volunteer Registration' : 'KEF Collaboration Proposal';
-  window.location.href='mailto:info@krisateducare.org?subject='+encodeURIComponent(sub)+'&body='+encodeURIComponent(body);
-  toast(type==='volunteer' ? '🙋 Opening email client to send your registration!' : '🌐 Opening email client to send your proposal!');
-  setTimeout(closeAll,1500);
+
+  const isVol = type === 'volunteer';
+  const subject = isVol ? 'New KEF Volunteer Registration' : 'New KEF Collaboration Proposal';
+
+  // Disable button while sending
+  btn.disabled = true;
+  btn.textContent = 'Sending…';
+
+  // EmailJS send
+  emailjs.send('kef_service', isVol ? 'kef_volunteer' : 'kef_collab', {
+    to_name:   'Lalit Taneja',
+    to_email:  'tanejalalit12@gmail.com',
+    from_type: isVol ? 'Volunteer Registration' : 'Collaboration Proposal',
+    subject:   subject,
+    message:   body
+  })
+  .then(()=>{
+    btn.textContent = '✅ Sent!';
+    toast(isVol
+      ? '🙋 Registration sent to KEF! We will be in touch soon.'
+      : '🌐 Proposal sent to KEF! We will be in touch soon.'
+    );
+    form.reset();
+    setTimeout(()=>{ btn.disabled=false; btn.textContent=isVol?'Submit Registration':'Send Proposal'; closeAll(); }, 2500);
+  })
+  .catch(err=>{
+    console.error('EmailJS error:', err);
+    // Fallback: open mailto silently in background if EmailJS fails
+    btn.disabled = false;
+    btn.textContent = isVol ? 'Submit Registration' : 'Send Proposal';
+    toast('⚠️ Could not send automatically. Please email tanejalalit12@gmail.com directly.');
+  });
 }
 
 /* ─── TOAST ─── */
