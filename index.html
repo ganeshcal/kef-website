@@ -3,364 +3,916 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>KRISAT Educare Foundation</title>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <title>KRISAT Educare Foundation — Bridging Generations, Building Futures</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet"/>
   <style>
+    /* ─────────────────────────────────────────
+       RESET & TOKENS
+    ───────────────────────────────────────── */
     *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
     :root {
-      --saffron: #E8742A;
-      --saffron-light: #F4A261;
-      --gold: #C9933A;
-      --deep: #1A0F00;
-      --earth: #3D2B1F;
-      --cream: #FAF4EC;
-      --warm-white: #FFFDF9;
-      --muted: #8A7060;
+      --c-saffron:   #E07B2E;
+      --c-gold:      #C9933A;
+      --c-gold-lt:   #F0B860;
+      --c-deep:      #110900;
+      --c-earth:     #3A2416;
+      --c-cream:     #FBF5EC;
+      --c-warm:      #FFFDF8;
+      --c-muted:     #7D6555;
+      --c-border:    rgba(224,123,46,0.18);
+      --f-display:   'Playfair Display', Georgia, serif;
+      --f-body:      'Outfit', sans-serif;
+      --ease-out:    cubic-bezier(0.22, 1, 0.36, 1);
     }
-    html { scroll-behavior: smooth; }
-    body { font-family:'DM Sans',sans-serif; background:var(--warm-white); color:var(--deep); overflow-x:hidden; }
 
-    /* ── NAV ── */
-    nav {
-      position:fixed; top:0; left:0; right:0; z-index:100;
-      display:flex; align-items:center; justify-content:space-between;
-      padding:1rem 3.5rem;
-      background:rgba(10,4,0,0.55);
-      backdrop-filter:blur(16px);
-      border-bottom:1px solid rgba(232,116,42,0.18);
-      transition:background 0.4s, box-shadow 0.3s;
-    }
-    nav.light {
-      background:rgba(255,253,249,0.94);
-      border-bottom-color:rgba(232,116,42,0.12);
-    }
-    .nav-brand { display:flex; align-items:center; gap:0.9rem; text-decoration:none; }
-    .nav-logo-img { height:42px; width:42px; object-fit:contain; filter:drop-shadow(0 2px 6px rgba(0,0,0,0.3)); }
-    nav.light .nav-logo-img { filter:none; }
-    .nav-name {
-      font-family:'Cormorant Garamond',serif;
-      font-size:1.2rem; font-weight:600;
-      color:rgba(255,255,255,0.92);
-      letter-spacing:0.02em; line-height:1.2;
-      transition:color 0.4s;
-    }
-    .nav-name span { display:block; font-size:0.7rem; font-weight:300; letter-spacing:0.15em; text-transform:uppercase; color:var(--saffron-light); }
-    nav.light .nav-name { color:var(--earth); }
-    nav.light .nav-name span { color:var(--saffron); }
+    html { scroll-behavior: smooth; font-size: 16px; }
 
-    .nav-links { display:flex; gap:2.2rem; list-style:none; }
+    body {
+      font-family: var(--f-body);
+      background: var(--c-warm);
+      color: var(--c-earth);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ─────────────────────────────────────────
+       NAV
+    ───────────────────────────────────────── */
+    #nav {
+      position: fixed;
+      inset: 0 0 auto 0;
+      z-index: 500;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 3rem;
+      height: 70px;
+      transition: background 0.5s var(--ease-out), box-shadow 0.4s;
+    }
+
+    #nav.over-video {
+      background: linear-gradient(to bottom, rgba(0,0,0,0.55) 0%, transparent 100%);
+    }
+
+    #nav.scrolled {
+      background: rgba(255,253,248,0.96);
+      box-shadow: 0 1px 0 var(--c-border), 0 4px 24px rgba(0,0,0,0.06);
+      backdrop-filter: blur(14px);
+    }
+
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      text-decoration: none;
+      flex-shrink: 0;
+    }
+
+    .nav-logo {
+      height: 40px;
+      width: 40px;
+      object-fit: contain;
+      transition: filter 0.4s;
+    }
+
+    #nav.over-video .nav-logo { filter: brightness(0) invert(1) opacity(0.9); }
+
+    .nav-wordmark {
+      font-family: var(--f-display);
+      font-size: 1.05rem;
+      font-weight: 500;
+      line-height: 1.2;
+      color: var(--c-earth);
+      transition: color 0.4s;
+    }
+
+    #nav.over-video .nav-wordmark { color: rgba(255,255,255,0.92); }
+
+    .nav-wordmark small {
+      display: block;
+      font-family: var(--f-body);
+      font-size: 0.58rem;
+      font-weight: 400;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--c-saffron);
+      transition: color 0.4s;
+    }
+
+    #nav.over-video .nav-wordmark small { color: rgba(255,200,100,0.8); }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+      list-style: none;
+    }
+
     .nav-links a {
-      font-size:0.78rem; font-weight:500; letter-spacing:0.08em;
-      text-transform:uppercase; color:rgba(255,255,255,0.65);
-      text-decoration:none; position:relative; transition:color 0.2s;
+      display: block;
+      padding: 0.4rem 0.9rem;
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: var(--c-muted);
+      border-radius: 3px;
+      transition: color 0.2s, background 0.2s;
     }
-    nav.light .nav-links a { color:var(--earth); }
-    .nav-links a::after {
-      content:''; position:absolute; bottom:-3px; left:0;
-      width:0; height:1.5px; background:var(--saffron); transition:width 0.3s;
-    }
-    .nav-links a:hover { color:var(--saffron-light); }
-    nav.light .nav-links a:hover { color:var(--saffron); }
-    .nav-links a:hover::after { width:100%; }
-    .nav-cta {
-      background:var(--saffron) !important; color:white !important;
-      padding:0.48rem 1.3rem; border-radius:2px;
-    }
-    .nav-cta::after { display:none !important; }
-    .nav-cta:hover { background:var(--earth) !important; }
 
-    /* ══════════════════════════════
-       HERO — VISHWAROOP IMAGE
-    ══════════════════════════════ */
+    #nav.over-video .nav-links a { color: rgba(255,255,255,0.7); }
+
+    .nav-links a:hover { color: var(--c-saffron); background: rgba(224,123,46,0.07); }
+    #nav.over-video .nav-links a:hover { color: white; background: rgba(255,255,255,0.1); }
+
+    .nav-links .nav-donate {
+      background: var(--c-saffron);
+      color: white !important;
+      padding: 0.45rem 1.2rem;
+      border-radius: 3px;
+    }
+    .nav-links .nav-donate:hover { background: var(--c-earth) !important; color: white !important; }
+
+    /* ─────────────────────────────────────────
+       HERO — FULLSCREEN VIDEO
+    ───────────────────────────────────────── */
     #hero {
-      position:relative;
-      min-height:100vh;
-      display:flex;
-      align-items:flex-end;
-      justify-content:center;
-      overflow:hidden;
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      min-height: 600px;
+      overflow: hidden;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
     }
 
-    .hero-img {
-      position:absolute; inset:0;
-      width:100%; height:100%;
-      object-fit:cover;
-      object-position:center top;
+    /* Video fills 100% of hero, never letterboxed */
+    #hero-video {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center center;
     }
 
-    /* Dark gradient at bottom so text is legible */
-    .hero-overlay {
-      position:absolute; inset:0;
-      background:linear-gradient(
-        to bottom,
-        rgba(10,4,0,0.15) 0%,
-        rgba(10,4,0,0.1)  40%,
-        rgba(10,4,0,0.72) 72%,
-        rgba(10,4,0,0.95) 100%
-      );
+    /* Poster image — same cover behaviour — shows before video loads */
+    #hero-poster {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      z-index: 1;
+      transition: opacity 0.8s;
+    }
+
+    #hero-poster.hidden { opacity: 0; pointer-events: none; }
+
+    /* Layered gradient: subtle top (for nav), rich bottom (for text) */
+    .hero-scrim {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      background:
+        linear-gradient(to bottom,
+          rgba(0,0,0,0.38) 0%,
+          rgba(0,0,0,0.0)  28%,
+          rgba(0,0,0,0.0)  48%,
+          rgba(0,0,0,0.55) 72%,
+          rgba(0,0,0,0.88) 100%
+        );
     }
 
     .hero-content {
-      position:relative; z-index:2;
-      text-align:center;
-      padding:0 2rem 5rem;
-      max-width:820px;
-      animation:fadeUp 1.2s ease both;
+      position: relative;
+      z-index: 3;
+      text-align: center;
+      width: 100%;
+      max-width: 780px;
+      padding: 0 2rem 5rem;
     }
 
-    @keyframes fadeUp {
-      from { opacity:0; transform:translateY(30px); }
-      to   { opacity:1; transform:translateY(0); }
-    }
-
-    .hero-tag {
-      display:inline-block;
-      font-size:0.68rem; letter-spacing:0.28em;
-      text-transform:uppercase; color:var(--saffron-light);
-      margin-bottom:1.4rem;
+    .hero-eyebrow {
+      display: inline-block;
+      font-size: 0.64rem;
+      font-weight: 500;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--c-gold-lt);
+      margin-bottom: 1.6rem;
+      opacity: 0;
+      animation: fadeSlideUp 0.9s 0.3s var(--ease-out) forwards;
     }
 
     .hero-verse {
-      font-family:'Cormorant Garamond',serif;
-      font-style:italic;
-      font-size:clamp(1.15rem, 2.5vw, 1.6rem);
-      line-height:2.1;
-      color:rgba(255,255,255,0.88);
-      margin-bottom:0.8rem;
+      font-family: var(--f-display);
+      font-style: italic;
+      font-size: clamp(1.1rem, 2.2vw, 1.55rem);
+      line-height: 2.15;
+      color: rgba(255,255,255,0.92);
+      text-shadow: 0 2px 24px rgba(0,0,0,0.6);
+      margin-bottom: 0;
+      opacity: 0;
+      animation: fadeSlideUp 0.9s 0.55s var(--ease-out) forwards;
     }
 
-    .hero-divider {
-      width:55px; height:1px;
-      background:rgba(232,116,42,0.7);
-      margin:1.4rem auto;
+    .hero-rule {
+      width: 48px;
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--c-gold-lt), transparent);
+      margin: 1.6rem auto;
+      opacity: 0;
+      animation: fadeIn 0.6s 1.0s ease forwards;
     }
 
     .hero-translation {
-      font-size:0.88rem;
-      line-height:1.9;
-      color:rgba(255,255,255,0.48);
-      font-style:italic;
-      max-width:50ch;
-      margin:0 auto 2rem;
+      font-size: 0.84rem;
+      line-height: 1.9;
+      color: rgba(255,255,255,0.42);
+      font-style: italic;
+      max-width: 46ch;
+      margin: 0 auto 2.4rem;
+      opacity: 0;
+      animation: fadeSlideUp 0.9s 1.1s var(--ease-out) forwards;
     }
 
-    .hero-cta {
-      display:inline-block;
-      background:var(--saffron);
-      color:white; text-decoration:none;
-      padding:0.85rem 2.2rem;
-      font-size:0.78rem; letter-spacing:0.12em;
-      text-transform:uppercase; font-weight:500;
-      border-radius:2px;
-      transition:all 0.25s;
+    .hero-btn {
+      display: inline-block;
+      padding: 0.88rem 2.4rem;
+      background: var(--c-saffron);
+      color: white;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border-radius: 3px;
+      transition: all 0.28s var(--ease-out);
+      opacity: 0;
+      animation: fadeSlideUp 0.9s 1.3s var(--ease-out) forwards;
     }
-    .hero-cta:hover { background:white; color:var(--deep); transform:translateY(-2px); box-shadow:0 8px 24px rgba(0,0,0,0.3); }
+    .hero-btn:hover { background: white; color: var(--c-deep); transform: translateY(-3px); box-shadow: 0 12px 32px rgba(0,0,0,0.4); }
 
-    .scroll-hint {
-      position:absolute; bottom:2rem; left:50%; transform:translateX(-50%);
-      display:flex; flex-direction:column; align-items:center; gap:0.4rem;
-      color:rgba(255,255,255,0.25); font-size:0.62rem; letter-spacing:0.2em;
-      text-transform:uppercase; z-index:2;
-      animation:bob 2.2s ease-in-out infinite;
+    /* Animated scroll cue */
+    .scroll-cue {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 3;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      opacity: 0;
+      animation: fadeIn 1s 2s ease forwards;
     }
-    .scroll-hint::after {
-      content:''; display:block; width:1px; height:32px;
-      background:linear-gradient(to bottom, rgba(232,116,42,0.6), transparent);
-    }
-    @keyframes bob { 0%,100%{transform:translateX(-50%) translateY(0);} 50%{transform:translateX(-50%) translateY(8px);} }
 
-    /* ══════════════════════════════
+    .scroll-cue span {
+      font-size: 0.58rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.28);
+    }
+
+    .scroll-cue-line {
+      width: 1px;
+      height: 38px;
+      background: linear-gradient(to bottom, rgba(224,123,46,0.7), transparent);
+      animation: scrollPulse 2s 2.5s ease-in-out infinite;
+    }
+
+    @keyframes scrollPulse {
+      0%, 100% { transform: scaleY(1); opacity: 1; }
+      50%       { transform: scaleY(0.6); opacity: 0.4; }
+    }
+
+    @keyframes fadeSlideUp {
+      from { opacity: 0; transform: translateY(22px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+    /* ─────────────────────────────────────────
        SECTION SHARED
-    ══════════════════════════════ */
-    .stag {
-      font-size:0.68rem; letter-spacing:0.22em; text-transform:uppercase;
-      color:var(--saffron); font-weight:500; margin-bottom:1rem;
-      display:flex; align-items:center; gap:0.7rem;
-    }
-    .stag::before { content:''; display:block; width:1.8rem; height:1px; background:var(--saffron); }
+    ───────────────────────────────────────── */
+    section { padding: 6rem 4rem; }
 
-    .stitle {
-      font-family:'Cormorant Garamond',serif;
-      font-size:clamp(2rem,3.5vw,3.5rem);
-      font-weight:300; line-height:1.1; color:var(--deep); margin-bottom:1.5rem;
+    .eyebrow {
+      font-size: 0.64rem;
+      font-weight: 600;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--c-saffron);
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
     }
-    .stitle em { font-style:italic; color:var(--saffron); }
+    .eyebrow::before { content:''; display:block; width:2rem; height:1px; background:var(--c-saffron); flex-shrink:0; }
 
-    /* ══════════════════════════════
+    h2.display {
+      font-family: var(--f-display);
+      font-size: clamp(2rem, 3.8vw, 3.6rem);
+      font-weight: 500;
+      line-height: 1.1;
+      color: var(--c-deep);
+      margin-bottom: 1.5rem;
+    }
+    h2.display em { font-style: italic; color: var(--c-saffron); }
+    h2.display.light { color: #fff; }
+
+    /* ─────────────────────────────────────────
        WELCOME
-    ══════════════════════════════ */
+    ───────────────────────────────────────── */
     #welcome {
-      display:grid; grid-template-columns:1fr 1fr;
-      min-height:80vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      padding: 0;
+      min-height: 80vh;
     }
-    .wl {
-      display:flex; flex-direction:column; justify-content:center;
-      padding:7rem 4rem; position:relative;
-    }
-    .wl::after {
-      content:''; position:absolute; right:0; top:12%; bottom:12%;
-      width:1px; background:linear-gradient(to bottom,transparent,rgba(232,116,42,0.18),transparent);
-    }
-    .wbody { font-size:0.97rem; line-height:1.88; color:var(--muted); font-weight:300; max-width:48ch; margin-bottom:1.2rem; }
-    .btnp {
-      display:inline-block; margin-top:1.5rem;
-      background:var(--saffron); color:white; text-decoration:none;
-      padding:0.9rem 2.2rem; font-size:0.78rem; letter-spacing:0.1em;
-      text-transform:uppercase; font-weight:500; border-radius:2px; transition:all 0.25s;
-    }
-    .btnp:hover { background:var(--earth); transform:translateY(-1px); box-shadow:0 8px 24px rgba(232,116,42,0.25); }
 
-    .wr {
-      background:var(--cream);
-      display:flex; align-items:center; justify-content:center; padding:4rem 3rem;
+    .welcome-left {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 7rem 5rem 7rem 4rem;
+      position: relative;
     }
-    .stats { display:flex; flex-direction:column; gap:1.2rem; width:100%; max-width:380px; }
-    .stat {
-      display:flex; align-items:center; gap:1.5rem;
-      background:white; border-radius:4px; padding:1.4rem 2rem;
-      box-shadow:0 2px 20px rgba(60,40,20,0.05); border-left:3px solid var(--saffron);
-      transition:transform 0.2s;
-    }
-    .stat:hover { transform:translateX(4px); }
-    .snum { font-family:'Cormorant Garamond',serif; font-size:2.5rem; font-weight:300; color:var(--saffron); line-height:1; min-width:62px; }
-    .slbl { font-size:0.82rem; color:var(--muted); line-height:1.5; }
-    .slbl strong { display:block; color:var(--earth); font-size:0.86rem; }
 
-    /* ══════════════════════════════
+    .welcome-left::after {
+      content: '';
+      position: absolute;
+      right: 0; top: 8%; bottom: 8%;
+      width: 1px;
+      background: linear-gradient(to bottom, transparent, var(--c-border), transparent);
+    }
+
+    .welcome-body {
+      font-size: 1rem;
+      line-height: 1.9;
+      color: var(--c-muted);
+      font-weight: 300;
+      max-width: 46ch;
+      margin-bottom: 1.2rem;
+    }
+
+    .cta-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 1.8rem;
+      padding: 0.9rem 2.2rem;
+      background: var(--c-saffron);
+      color: white;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border-radius: 3px;
+      transition: all 0.25s var(--ease-out);
+      width: fit-content;
+    }
+    .cta-primary::after { content: '→'; transition: transform 0.2s; }
+    .cta-primary:hover { background: var(--c-earth); transform: translateY(-2px); box-shadow: 0 8px 28px rgba(224,123,46,0.28); }
+    .cta-primary:hover::after { transform: translateX(4px); }
+
+    .welcome-right {
+      background: var(--c-cream);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 5rem 4rem;
+    }
+
+    .stat-stack { display: flex; flex-direction: column; gap: 1rem; width: 100%; max-width: 360px; }
+
+    .stat-card {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      background: white;
+      border-radius: 6px;
+      padding: 1.4rem 1.8rem;
+      border-left: 3px solid var(--c-saffron);
+      box-shadow: 0 2px 16px rgba(60,36,22,0.06);
+      transition: transform 0.22s var(--ease-out), box-shadow 0.22s;
+    }
+    .stat-card:hover { transform: translateX(5px); box-shadow: 0 6px 28px rgba(60,36,22,0.1); }
+
+    .stat-n {
+      font-family: var(--f-display);
+      font-size: 2.6rem;
+      font-weight: 400;
+      color: var(--c-saffron);
+      line-height: 1;
+      min-width: 60px;
+    }
+
+    .stat-l { font-size: 0.82rem; line-height: 1.5; color: var(--c-muted); }
+    .stat-l strong { display: block; font-size: 0.88rem; color: var(--c-earth); font-weight: 600; }
+
+    /* ─────────────────────────────────────────
        WHAT WE DO
-    ══════════════════════════════ */
-    #what-we-do { background:var(--deep); padding:7rem 4rem; }
-    #what-we-do .stag { color:var(--saffron-light); }
-    #what-we-do .stag::before { background:var(--saffron-light); }
-    #what-we-do .stitle { color:var(--cream); }
-
-    .wgrid { display:grid; grid-template-columns:repeat(3,1fr); gap:1.5rem; margin-top:3.5rem; }
-    .wcard {
-      background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.07);
-      border-radius:4px; padding:2.5rem 2rem;
-      position:relative; overflow:hidden; transition:all 0.3s;
+    ───────────────────────────────────────── */
+    #what-we-do {
+      background: var(--c-deep);
+      padding: 7rem 4rem;
     }
-    .wcard::after {
-      content:''; position:absolute; bottom:0; left:0; right:0; height:2px;
-      background:var(--saffron); transform:scaleX(0); transform-origin:left; transition:transform 0.3s;
-    }
-    .wcard:hover { background:rgba(255,255,255,0.07); transform:translateY(-4px); }
-    .wcard:hover::after { transform:scaleX(1); }
-    .wicon { font-size:2rem; margin-bottom:1.4rem; display:block; }
-    .wtitle { font-family:'Cormorant Garamond',serif; font-size:1.5rem; font-weight:600; color:white; margin-bottom:0.7rem; }
-    .wtext { font-size:0.87rem; line-height:1.78; color:rgba(255,255,255,0.48); }
 
-    /* ══════════════════════════════
+    #what-we-do .eyebrow { color: var(--c-gold-lt); }
+    #what-we-do .eyebrow::before { background: var(--c-gold-lt); }
+
+    .program-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-top: 3.5rem;
+    }
+
+    .program-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 8px;
+      padding: 2.5rem 2rem;
+      position: relative;
+      overflow: hidden;
+      transition: background 0.3s, transform 0.3s var(--ease-out);
+      cursor: default;
+    }
+
+    .program-card::after {
+      content: '';
+      position: absolute;
+      inset: 0 0 auto 0;
+      height: 2px;
+      background: linear-gradient(to right, var(--c-saffron), var(--c-gold));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.4s var(--ease-out);
+    }
+
+    .program-card:hover { background: rgba(255,255,255,0.07); transform: translateY(-5px); }
+    .program-card:hover::after { transform: scaleX(1); }
+
+    .program-icon { font-size: 2.2rem; margin-bottom: 1.4rem; display: block; }
+
+    .program-title {
+      font-family: var(--f-display);
+      font-size: 1.45rem;
+      font-weight: 500;
+      color: white;
+      margin-bottom: 0.8rem;
+    }
+
+    .program-text { font-size: 0.88rem; line-height: 1.8; color: rgba(255,255,255,0.46); }
+
+    /* ─────────────────────────────────────────
        GET INVOLVED
-    ══════════════════════════════ */
-    #get-involved { padding:7rem 4rem; background:var(--cream); }
-    .iheader { text-align:center; max-width:52ch; margin:0 auto 4rem; }
-    .iheader .stag { justify-content:center; }
-    .iheader .stag::before { display:none; }
-    .icards { display:grid; grid-template-columns:repeat(3,1fr); gap:1.5rem; max-width:1100px; margin:0 auto; }
-    .icard {
-      background:white; border-radius:4px; padding:3rem 2.5rem; text-align:center;
-      box-shadow:0 2px 30px rgba(60,40,20,0.06); transition:all 0.3s; position:relative; overflow:hidden;
-    }
-    .icard::before {
-      content:''; position:absolute; top:0; left:0; right:0; height:3px;
-      background:var(--saffron); transform:scaleX(0); transform-origin:left; transition:transform 0.3s;
-    }
-    .icard:hover { transform:translateY(-6px); box-shadow:0 16px 48px rgba(60,40,20,0.12); }
-    .icard:hover::before { transform:scaleX(1); }
-    .inum { font-family:'Cormorant Garamond',serif; font-size:5rem; font-weight:300; color:rgba(232,116,42,0.07); line-height:1; position:absolute; top:1rem; right:1.5rem; }
-    .iicon { font-size:2.5rem; margin-bottom:1.2rem; display:block; }
-    .ititle { font-family:'Cormorant Garamond',serif; font-size:1.7rem; font-weight:600; color:var(--deep); margin-bottom:0.8rem; }
-    .itext { font-size:0.87rem; line-height:1.78; color:var(--muted); margin-bottom:2rem; }
-    .ibtn {
-      display:inline-block; padding:0.65rem 1.8rem;
-      font-size:0.74rem; letter-spacing:0.1em; text-transform:uppercase;
-      background:var(--deep); color:white; text-decoration:none; border-radius:2px; transition:background 0.2s;
-    }
-    .ibtn:hover { background:var(--saffron); }
+    ───────────────────────────────────────── */
+    #get-involved { background: var(--c-cream); padding: 7rem 4rem; }
 
-    /* ══════════════════════════════
+    .involve-head { text-align: center; max-width: 50ch; margin: 0 auto 4rem; }
+    .involve-head .eyebrow { justify-content: center; }
+    .involve-head .eyebrow::before { display: none; }
+
+    .involve-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      max-width: 1080px;
+      margin: 0 auto;
+    }
+
+    .involve-card {
+      background: white;
+      border-radius: 8px;
+      padding: 2.8rem 2.2rem;
+      text-align: center;
+      box-shadow: 0 2px 24px rgba(60,36,22,0.06);
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.3s var(--ease-out), box-shadow 0.3s;
+    }
+
+    .involve-card::before {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(to right, var(--c-saffron), var(--c-gold));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.4s var(--ease-out);
+    }
+
+    .involve-card:hover { transform: translateY(-7px); box-shadow: 0 20px 50px rgba(60,36,22,0.13); }
+    .involve-card:hover::before { transform: scaleX(1); }
+
+    .involve-n {
+      position: absolute;
+      top: 1.2rem; right: 1.5rem;
+      font-family: var(--f-display);
+      font-size: 4.5rem;
+      font-weight: 700;
+      color: rgba(224,123,46,0.06);
+      line-height: 1;
+    }
+
+    .involve-icon { font-size: 2.4rem; margin-bottom: 1.2rem; display: block; }
+
+    .involve-title {
+      font-family: var(--f-display);
+      font-size: 1.55rem;
+      font-weight: 500;
+      color: var(--c-deep);
+      margin-bottom: 0.8rem;
+    }
+
+    .involve-text { font-size: 0.87rem; line-height: 1.8; color: var(--c-muted); margin-bottom: 1.8rem; }
+
+    .cta-outline {
+      display: inline-block;
+      padding: 0.6rem 1.7rem;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border: 1.5px solid var(--c-earth);
+      color: var(--c-earth);
+      border-radius: 3px;
+      transition: all 0.22s;
+    }
+    .cta-outline:hover { background: var(--c-saffron); border-color: var(--c-saffron); color: white; }
+
+    /* ─────────────────────────────────────────
+       DONATE SECTION
+    ───────────────────────────────────────── */
+    #donate {
+      background: var(--c-warm);
+      padding: 7rem 4rem;
+      position: relative;
+    }
+
+    /* Decorative background texture */
+    #donate::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        radial-gradient(circle at 15% 50%, rgba(224,123,46,0.05) 0%, transparent 50%),
+        radial-gradient(circle at 85% 20%, rgba(201,147,58,0.05) 0%, transparent 50%);
+      pointer-events: none;
+    }
+
+    .donate-inner {
+      position: relative;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .donate-left {}
+
+    .donate-desc {
+      font-size: 1rem;
+      line-height: 1.9;
+      color: var(--c-muted);
+      font-weight: 300;
+      margin-bottom: 1.5rem;
+    }
+
+    .donate-quote {
+      font-family: var(--f-display);
+      font-size: 1.35rem;
+      font-style: italic;
+      color: var(--c-saffron);
+      line-height: 1.55;
+      padding-left: 1.5rem;
+      border-left: 3px solid var(--c-gold-lt);
+      margin-top: 2rem;
+    }
+
+    /* Bank card */
+    .bank-card {
+      background: var(--c-deep);
+      border-radius: 12px;
+      padding: 2.8rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Animated shimmer on top edge */
+    .bank-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg,
+        transparent 0%,
+        var(--c-gold-lt) 30%,
+        var(--c-saffron) 50%,
+        var(--c-gold-lt) 70%,
+        transparent 100%
+      );
+      background-size: 200% 100%;
+      animation: shimmer 3s ease-in-out infinite;
+    }
+
+    @keyframes shimmer {
+      0%   { background-position: -200% 0; }
+      100% { background-position: 200% 0; }
+    }
+
+    /* Subtle glow */
+    .bank-card::after {
+      content: '';
+      position: absolute;
+      bottom: -60px; right: -60px;
+      width: 200px; height: 200px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(224,123,46,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .bank-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 2rem;
+    }
+
+    .bank-header-icon {
+      width: 40px; height: 40px;
+      background: rgba(224,123,46,0.15);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem;
+    }
+
+    .bank-header-text {
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--c-gold-lt);
+    }
+
+    .bank-rows { display: flex; flex-direction: column; gap: 0; }
+
+    .bank-row {
+      display: flex;
+      flex-direction: column;
+      gap: 0.28rem;
+      padding: 1.1rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    .bank-row:last-of-type { border-bottom: none; }
+
+    .bank-label {
+      font-size: 0.6rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.28);
+    }
+
+    .bank-value {
+      font-family: var(--f-display);
+      font-size: 1.3rem;
+      font-weight: 400;
+      color: white;
+      letter-spacing: 0.02em;
+    }
+
+    .bank-value.gold { color: var(--c-gold-lt); }
+
+    .bank-actions {
+      display: flex;
+      gap: 0.75rem;
+      margin-top: 1.8rem;
+    }
+
+    /* THE COPY BUTTON — fully working */
+    .btn-copy {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.85rem 1.2rem;
+      background: var(--c-saffron);
+      color: white;
+      font-family: var(--f-body);
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: all 0.22s var(--ease-out);
+    }
+    .btn-copy:hover { background: #c8641a; transform: translateY(-1px); box-shadow: 0 6px 20px rgba(224,123,46,0.4); }
+    .btn-copy.success { background: #2e7d52; }
+    .btn-copy.success:hover { background: #2e7d52; }
+
+    .btn-copy-ghost {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.85rem 1.2rem;
+      background: transparent;
+      color: rgba(255,255,255,0.5);
+      font-family: var(--f-body);
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 5px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.22s;
+    }
+    .btn-copy-ghost:hover { border-color: rgba(255,255,255,0.25); color: white; }
+
+    .bank-note {
+      margin-top: 1.4rem;
+      font-size: 0.78rem;
+      line-height: 1.7;
+      color: rgba(255,255,255,0.3);
+      font-style: italic;
+    }
+    .bank-note a { color: var(--c-gold-lt); text-decoration: none; }
+    .bank-note a:hover { text-decoration: underline; }
+
+    /* ─────────────────────────────────────────
        CONTACT
-    ══════════════════════════════ */
-    #contact { background:var(--deep); text-align:center; padding:7rem 4rem; position:relative; overflow:hidden; }
-    #contact::before { content:''; position:absolute; width:650px; height:650px; border-radius:50%; border:1px solid rgba(232,116,42,0.06); top:50%; left:50%; transform:translate(-50%,-50%); }
-    #contact::after  { content:''; position:absolute; width:400px; height:400px; border-radius:50%; border:1px solid rgba(232,116,42,0.1);  top:50%; left:50%; transform:translate(-50%,-50%); }
-    .cinner { position:relative; z-index:1; }
-    #contact .stag { justify-content:center; color:var(--saffron-light); }
-    #contact .stag::before { display:none; }
-    #contact .stitle { color:white; margin-bottom:1rem; }
-    .csub { font-size:1rem; color:rgba(255,255,255,0.38); margin-bottom:3rem; font-weight:300; }
-    .ccard {
-      display:inline-flex; flex-direction:column; align-items:center; gap:0.5rem;
-      background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.08);
-      border-radius:6px; padding:2.5rem 5rem; backdrop-filter:blur(10px);
+    ───────────────────────────────────────── */
+    #contact {
+      background: var(--c-cream);
+      padding: 7rem 4rem;
+      text-align: center;
     }
-    .crole { font-size:0.68rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--saffron); }
-    .cname { font-family:'Cormorant Garamond',serif; font-size:1.9rem; color:white; }
-    .cdiv  { width:1px; height:18px; background:rgba(255,255,255,0.1); margin:0.2rem auto; }
-    .cphone { font-family:'Cormorant Garamond',serif; font-size:1.5rem; color:rgba(255,255,255,0.75); text-decoration:none; letter-spacing:0.05em; transition:color 0.2s; }
-    .cphone:hover { color:var(--saffron-light); }
 
-    /* ══════════════════════════════
+    #contact .eyebrow { justify-content: center; }
+    #contact .eyebrow::before { display: none; }
+
+    .contact-card {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.6rem;
+      background: white;
+      border: 1px solid var(--c-border);
+      border-radius: 10px;
+      padding: 3rem 5rem;
+      box-shadow: 0 4px 32px rgba(60,36,22,0.08);
+      margin-top: 1rem;
+    }
+
+    .contact-role {
+      font-size: 0.62rem;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--c-saffron);
+    }
+
+    .contact-name {
+      font-family: var(--f-display);
+      font-size: 2rem;
+      font-weight: 500;
+      color: var(--c-deep);
+    }
+
+    .contact-sep { width: 36px; height: 1px; background: var(--c-border); }
+
+    .contact-phone {
+      font-family: var(--f-display);
+      font-size: 1.55rem;
+      color: var(--c-muted);
+      text-decoration: none;
+      letter-spacing: 0.04em;
+      transition: color 0.2s;
+    }
+    .contact-phone:hover { color: var(--c-saffron); }
+
+    /* ─────────────────────────────────────────
        FOOTER
-    ══════════════════════════════ */
+    ───────────────────────────────────────── */
     footer {
-      background:#050200; padding:2rem 4rem;
-      display:flex; align-items:center; justify-content:space-between;
-      border-top:1px solid rgba(255,255,255,0.04);
+      background: var(--c-deep);
+      padding: 2.5rem 4rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid rgba(255,255,255,0.04);
     }
-    .flogo-wrap { display:flex; align-items:center; gap:0.8rem; }
-    .flogo-img { height:34px; width:34px; object-fit:contain; opacity:0.5; }
-    .flogo-name { font-family:'Cormorant Garamond',serif; font-size:0.95rem; color:rgba(255,255,255,0.28); }
-    .ftag { font-family:'Cormorant Garamond',serif; font-size:0.82rem; font-style:italic; color:rgba(232,116,42,0.35); }
-    .fcopy { font-size:0.7rem; color:rgba(255,255,255,0.18); letter-spacing:0.05em; }
 
-    /* ── REVEAL ── */
-    .reveal { opacity:0; transform:translateY(22px); transition:opacity 0.7s,transform 0.7s; }
-    .reveal.visible { opacity:1; transform:none; }
+    .footer-brand { display: flex; align-items: center; gap: 0.75rem; }
+    .footer-logo { height: 32px; width: 32px; object-fit: contain; opacity: 0.4; }
+    .footer-name { font-family: var(--f-display); font-size: 0.95rem; color: rgba(255,255,255,0.3); }
+    .footer-tagline { font-family: var(--f-display); font-style: italic; font-size: 0.85rem; color: rgba(224,123,46,0.35); }
+    .footer-copy { font-size: 0.68rem; color: rgba(255,255,255,0.18); letter-spacing: 0.05em; }
 
-    /* ── RESPONSIVE ── */
-    @media(max-width:900px){
-      nav { padding:1rem 1.5rem; }
-      .nav-links { display:none; }
-      #welcome { grid-template-columns:1fr; }
-      .wl { padding:5rem 2rem 3rem; }
-      .wr { padding:3rem 2rem; }
-      .wgrid,.icards { grid-template-columns:1fr; }
-      #what-we-do,#get-involved,#contact { padding:5rem 2rem; }
-      footer { flex-direction:column; gap:0.8rem; text-align:center; padding:1.5rem 2rem; }
+    /* ─────────────────────────────────────────
+       SCROLL REVEAL
+    ───────────────────────────────────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.8s var(--ease-out), transform 0.8s var(--ease-out);
+    }
+    .reveal.in { opacity: 1; transform: none; }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+
+    /* ─────────────────────────────────────────
+       RESPONSIVE
+    ───────────────────────────────────────── */
+    @media (max-width: 960px) {
+      #nav { padding: 0 1.5rem; }
+      .nav-links { display: none; }
+      section { padding: 5rem 1.5rem; }
+      #welcome { grid-template-columns: 1fr; min-height: auto; }
+      .welcome-left { padding: 5rem 1.5rem 3rem; }
+      .welcome-left::after { display: none; }
+      .welcome-right { padding: 3rem 1.5rem; }
+      .program-grid, .involve-grid { grid-template-columns: 1fr; }
+      .donate-inner { grid-template-columns: 1fr; gap: 3rem; }
+      #what-we-do, #get-involved, #donate, #contact { padding: 5rem 1.5rem; }
+      .contact-card { padding: 2.5rem 2rem; }
+      footer { flex-direction: column; gap: 1rem; text-align: center; padding: 2rem 1.5rem; }
     }
   </style>
 </head>
 <body>
 
-  <!-- NAV -->
-  <nav id="navbar">
+  <!-- ══════════════ NAV ══════════════ -->
+  <nav id="nav" class="over-video">
     <a href="#hero" class="nav-brand">
-      <img src="krisat_page_1.png" class="nav-logo-img" alt="KEF Logo"/>
-      <div class="nav-name">
+      <img src="krisat_page_1.png" class="nav-logo" alt="KEF"/>
+      <div class="nav-wordmark">
         KRISAT Educare Foundation
-        <span>Bridging Generations, Building Futures</span>
+        <small>Bridging Generations, Building Futures</small>
       </div>
     </a>
     <ul class="nav-links">
-      <li><a href="#hero">Inspiration</a></li>
       <li><a href="#welcome">Welcome</a></li>
       <li><a href="#what-we-do">What We Do</a></li>
       <li><a href="#get-involved">Get Involved</a></li>
-      <li><a href="#contact" class="nav-cta">Contact</a></li>
+      <li><a href="#donate" class="nav-donate">Donate</a></li>
+      <li><a href="#contact">Contact</a></li>
     </ul>
   </nav>
 
-  <!-- ═══════════════════════════════════
-       HERO — VISHWAROOP IMAGE + QUOTE
-  ═══════════════════════════════════ -->
+  <!-- ══════════════ HERO VIDEO ══════════════ -->
   <section id="hero">
-    <img src="KRISAT_Front_Page.webp" class="hero-img" alt="Vishwaroop Darshan"/>
-    <div class="hero-overlay"></div>
+
+    <!-- Poster: shows instantly while video loads -->
+    <img
+      id="hero-poster"
+      src="KRISAT_Front_Page.webp"
+      alt="Vishwaroop Darshan"
+    />
+
+    <!-- Video: covers full viewport -->
+    <video
+      id="hero-video"
+      autoplay
+      muted
+      loop
+      playsinline
+      preload="auto"
+    >
+      <source src="Divine_Cosmic_Scene_Generation.mp4" type="video/mp4"/>
+    </video>
+
+    <div class="hero-scrim"></div>
 
     <div class="hero-content">
-      <span class="hero-tag">Our Sacred Inspiration · Bhagavad Gita</span>
+      <span class="hero-eyebrow">Our Sacred Inspiration · Bhagavad Gita · Chapter 2, Verse 20</span>
 
       <p class="hero-verse">
         "na jāyate mriyate vā kadācin<br/>
@@ -369,159 +921,324 @@
         na hanyate hanyamāne śarīre"
       </p>
 
-      <div class="hero-divider"></div>
+      <div class="hero-rule"></div>
 
       <p class="hero-translation">
-        "The soul is never born nor dies at any time. It is unborn, eternal, ever-existing, undying and primeval — it is not slain when the body is slain."<br/>
-        — Bhagavad Gita, Chapter 2, Verse 20
+        "The soul is never born nor dies at any time. It is unborn, eternal,
+        ever-existing, undying and primeval — it is not slain when the body is slain."
       </p>
 
-      <a href="#welcome" class="hero-cta">Discover Our Mission</a>
+      <a href="#welcome" class="hero-btn">Discover Our Mission</a>
     </div>
 
-    <div class="scroll-hint">Scroll</div>
+    <div class="scroll-cue">
+      <span>Scroll</span>
+      <div class="scroll-cue-line"></div>
+    </div>
+
   </section>
 
-  <!-- ═══════════════════════════════════
-       WELCOME
-  ═══════════════════════════════════ -->
+  <!-- ══════════════ WELCOME ══════════════ -->
   <section id="welcome">
-    <div class="wl">
-      <div class="stag">Welcome</div>
-      <h2 class="stitle">A World of <em>Nurtured Childhood</em><br/>& Rewarding <em>Elderliness</em></h2>
-      <p class="wbody">Children are God's most wondrous blessing and the nation's future. Elders are our ideals — the guides who help us find our paths in life. Unfortunately, both of these pillars of society often fall prey to negligence.</p>
-      <p class="wbody">With KRISAT Educare Foundation, we aim to change the scenario — extending help to underprivileged children by offering them an opportunity to learn, and to our elderlies, the requisite healthcare and upkeep facilities.</p>
-      <a href="#get-involved" class="btnp">Join the Cause</a>
+    <div class="welcome-left">
+      <div class="eyebrow reveal">Welcome</div>
+      <h2 class="display reveal reveal-delay-1">
+        A World of <em>Nurtured Childhood</em><br/>
+        &amp; Rewarding <em>Elderliness</em>
+      </h2>
+      <p class="welcome-body reveal reveal-delay-2">
+        Children are God's most wondrous blessing and the nation's future. Elders are our ideals — the guides who help us find our paths in life. Unfortunately, both of these pillars of society often fall prey to negligence and obliviousness.
+      </p>
+      <p class="welcome-body reveal reveal-delay-2">
+        With KRISAT Educare Foundation, we aim to change the scenario. It is our sincere endeavour to extend our help and support to underprivileged children by offering them an opportunity to learn — and to our elderlies, the requisite healthcare and upkeep facilities.
+      </p>
+      <a href="#get-involved" class="cta-primary reveal reveal-delay-3">Join the Cause</a>
     </div>
-    <div class="wr">
-      <div class="stats reveal">
-        <div class="stat">
-          <div class="snum">2017</div>
-          <div class="slbl"><strong>Year Founded</strong>Based in Faridabad, India</div>
+
+    <div class="welcome-right">
+      <div class="stat-stack">
+        <div class="stat-card reveal">
+          <div class="stat-n">2017</div>
+          <div class="stat-l"><strong>Year Founded</strong>Based in Faridabad, India</div>
         </div>
-        <div class="stat">
-          <div class="snum">2</div>
-          <div class="slbl"><strong>Core Missions</strong>Children's education & elderly care</div>
+        <div class="stat-card reveal reveal-delay-1">
+          <div class="stat-n">2</div>
+          <div class="stat-l"><strong>Core Missions</strong>Education &amp; elderly care</div>
         </div>
-        <div class="stat">
-          <div class="snum">3</div>
-          <div class="slbl"><strong>Ways to Help</strong>Volunteer, collaborate or donate</div>
+        <div class="stat-card reveal reveal-delay-2">
+          <div class="stat-n">3</div>
+          <div class="stat-l"><strong>Ways to Help</strong>Volunteer, collaborate or donate</div>
         </div>
-        <div class="stat">
-          <div class="snum">∞</div>
-          <div class="slbl"><strong>Lives to Touch</strong>Because life is eternal</div>
+        <div class="stat-card reveal reveal-delay-3">
+          <div class="stat-n">∞</div>
+          <div class="stat-l"><strong>Lives to Touch</strong>Because life is eternal</div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ═══════════════════════════════════
-       WHAT WE DO
-  ═══════════════════════════════════ -->
+  <!-- ══════════════ WHAT WE DO ══════════════ -->
   <section id="what-we-do">
-    <div class="stag">What We Do</div>
-    <h2 class="stitle">Bridging the <em>Two Ends</em> of Life</h2>
-    <div class="wgrid">
-      <div class="wcard reveal">
-        <span class="wicon">📚</span>
-        <h3 class="wtitle">Education & Awareness</h3>
-        <p class="wtext">Providing destitute children with primary education and ensuring the younger generation is fully aware of sanitation, healthcare, and their fundamental right to free education.</p>
+    <div class="eyebrow reveal">What We Do</div>
+    <h2 class="display light reveal reveal-delay-1">
+      Bridging the <em>Two Ends</em> of Life
+    </h2>
+
+    <div class="program-grid">
+      <div class="program-card reveal">
+        <span class="program-icon">📚</span>
+        <h3 class="program-title">Education &amp; Awareness</h3>
+        <p class="program-text">
+          Providing destitute children with primary education and ensuring the younger generation is fully aware of sanitation, healthcare, and their fundamental right to free education.
+        </p>
       </div>
-      <div class="wcard reveal">
-        <span class="wicon">🌿</span>
-        <h3 class="wtitle">Elderly Care</h3>
-        <p class="wtext">Bringing back the lost spark in elders' lives through meaningful activities and healthcare facilities — so they can spend their golden years in comfort and dignity.</p>
+      <div class="program-card reveal reveal-delay-1">
+        <span class="program-icon">🌿</span>
+        <h3 class="program-title">Elderly Care</h3>
+        <p class="program-text">
+          Bringing back the lost spark in elders' lives through meaningful activities and healthcare — so they can spend their golden years in comfort and dignity, not neglect.
+        </p>
       </div>
-      <div class="wcard reveal">
-        <span class="wicon">🤝</span>
-        <h3 class="wtitle">Linking the Two Ends</h3>
-        <p class="wtext">Inspired by the 'Granny Teaches the Young' and 'Grandmother Project', we bring the young and ageing together on one platform — because together, they can change the world!</p>
+      <div class="program-card reveal reveal-delay-2">
+        <span class="program-icon">🤝</span>
+        <h3 class="program-title">Linking the Two Ends</h3>
+        <p class="program-text">
+          Inspired by the 'Granny Teaches the Young' and 'Grandmother Project', we bring the young and ageing together — because together, they can change the world for the better.
+        </p>
       </div>
     </div>
   </section>
 
-  <!-- ═══════════════════════════════════
-       GET INVOLVED
-  ═══════════════════════════════════ -->
+  <!-- ══════════════ GET INVOLVED ══════════════ -->
   <section id="get-involved">
-    <div class="iheader">
-      <div class="stag">Get Involved</div>
-      <h2 class="stitle">Every <em>Hand</em> Counts</h2>
-      <p style="font-size:1rem;line-height:1.78;color:var(--muted);font-weight:300;">We call out to anyone and everyone who relates to these causes — offer your help, in any capacity you can!</p>
+    <div class="involve-head">
+      <div class="eyebrow reveal">Get Involved</div>
+      <h2 class="display reveal reveal-delay-1">Every <em>Hand</em> Counts</h2>
+      <p style="font-size:1rem;line-height:1.82;color:var(--c-muted);font-weight:300;" class="reveal reveal-delay-2">
+        We call out to anyone and everyone who relates to these causes — offer your help and support, in any capacity that you can!
+      </p>
     </div>
-    <div class="icards">
-      <div class="icard reveal">
-        <span class="inum">01</span>
-        <span class="iicon">🙋</span>
-        <h3 class="ititle">Volunteer</h3>
-        <p class="itext">Register with us and we will get in touch with you regarding all our activities so you can be a meaningful part of them.</p>
-        <a href="tel:+919811335580" class="ibtn">Register Now</a>
+
+    <div class="involve-grid">
+      <div class="involve-card reveal">
+        <span class="involve-n">01</span>
+        <span class="involve-icon">🙋</span>
+        <h3 class="involve-title">Volunteer</h3>
+        <p class="involve-text">Register with us and we will get in touch regarding all our activities so you can be a meaningful part of something bigger.</p>
+        <a href="tel:+919811335580" class="cta-outline">Register Now</a>
       </div>
-      <div class="icard reveal">
-        <span class="inum">02</span>
-        <span class="iicon">🌐</span>
-        <h3 class="ititle">Collaborate</h3>
-        <p class="itext">Whether you work for an NGO or are a freelance social worker, we would love to collaborate with you for the causes we believe in.</p>
-        <a href="tel:+919811335580" class="ibtn">Let's Connect</a>
+      <div class="involve-card reveal reveal-delay-1">
+        <span class="involve-n">02</span>
+        <span class="involve-icon">🌐</span>
+        <h3 class="involve-title">Collaborate</h3>
+        <p class="involve-text">Whether you work for an NGO or are a freelance social worker, we would love to collaborate with you for the causes we believe in.</p>
+        <a href="tel:+919811335580" class="cta-outline">Let's Connect</a>
       </div>
-      <div class="icard reveal">
-        <span class="inum">03</span>
-        <span class="iicon">💛</span>
-        <h3 class="ititle">Donate</h3>
-        <p class="itext">Forward donations in cash or kind — and we will make sure your offerings are put to the best use possible, with complete transparency.</p>
-        <a href="tel:+919811335580" class="ibtn">Donate Now</a>
+      <div class="involve-card reveal reveal-delay-2">
+        <span class="involve-n">03</span>
+        <span class="involve-icon">💛</span>
+        <h3 class="involve-title">Donate</h3>
+        <p class="involve-text">Forward donations in cash or kind — we will make sure your offerings are put to the absolute best use possible, with full transparency.</p>
+        <a href="#donate" class="cta-outline">View Bank Details</a>
       </div>
     </div>
   </section>
 
-  <!-- ═══════════════════════════════════
-       CONTACT
-  ═══════════════════════════════════ -->
+  <!-- ══════════════ DONATE ══════════════ -->
+  <section id="donate">
+    <div class="donate-inner">
+
+      <div class="donate-left">
+        <div class="eyebrow reveal">Make a Donation</div>
+        <h2 class="display reveal reveal-delay-1">Every Rupee <em>Changes a Life</em></h2>
+        <p class="donate-desc reveal reveal-delay-2">
+          Your contribution — however big or small — goes directly towards education for underprivileged children and healthcare for our elderly. We ensure every donation is used with complete accountability.
+        </p>
+        <p class="donate-desc reveal reveal-delay-2">
+          You can transfer directly to our bank account using the details on the right. Please reach out to Lalit after your transfer so we can acknowledge your generosity.
+        </p>
+        <blockquote class="donate-quote reveal reveal-delay-3">
+          "There is probably nothing more meaningful than to tend to the most cardinal creation of God, in its most feeble phases."
+        </blockquote>
+      </div>
+
+      <div class="reveal reveal-delay-1">
+        <div class="bank-card">
+          <div class="bank-header">
+            <div class="bank-header-icon">🏦</div>
+            <div class="bank-header-text">Bank Transfer Details</div>
+          </div>
+
+          <div class="bank-rows">
+            <div class="bank-row">
+              <span class="bank-label">Account Name</span>
+              <span class="bank-value gold">KRISAT EDUCARE FOUNDATION</span>
+            </div>
+            <div class="bank-row">
+              <span class="bank-label">Bank</span>
+              <span class="bank-value">IndusInd Bank</span>
+            </div>
+            <div class="bank-row">
+              <span class="bank-label">Account Number</span>
+              <span class="bank-value" id="acc-num">201030704566</span>
+            </div>
+            <div class="bank-row">
+              <span class="bank-label">IFSC Code</span>
+              <span class="bank-value" id="ifsc-code">INDB0001501</span>
+            </div>
+          </div>
+
+          <div class="bank-actions">
+            <button class="btn-copy" id="copyBtn" onclick="copyBankDetails()">
+              <span id="copy-icon">📋</span>
+              <span id="copy-text">Copy All Details</span>
+            </button>
+            <a href="tel:+919811335580" class="btn-copy-ghost">
+              📞 Call Us
+            </a>
+          </div>
+
+          <p class="bank-note">
+            💛 After your transfer, please call <a href="tel:+919811335580">Lalit Taneja (+91 98113 35580)</a> so we can acknowledge your contribution and share the impact of your donation.
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══════════════ CONTACT ══════════════ -->
   <section id="contact">
-    <div class="cinner">
-      <div class="stag">Reach Out</div>
-      <h2 class="stitle">Let's Build a <em>Better World</em></h2>
-      <p class="csub">We'd love to hear from you. Reach out to our team directly.</p>
-      <div class="ccard reveal">
-        <div class="crole">Point of Contact</div>
-        <div class="cname">Lalit Taneja</div>
-        <div class="cdiv"></div>
-        <a href="tel:+919811335580" class="cphone">+91 98113 35580</a>
-      </div>
+    <div class="eyebrow reveal">Get In Touch</div>
+    <h2 class="display reveal reveal-delay-1">Let's Build a <em>Better World</em></h2>
+    <p style="font-size:1rem;color:var(--c-muted);font-weight:300;margin-bottom:0.5rem;" class="reveal reveal-delay-2">
+      We'd love to hear from you. Reach out to our team directly.
+    </p>
+    <div class="contact-card reveal reveal-delay-2">
+      <div class="contact-role">Point of Contact</div>
+      <div class="contact-name">Lalit Taneja</div>
+      <div class="contact-sep"></div>
+      <a href="tel:+919811335580" class="contact-phone">+91 98113 35580</a>
     </div>
   </section>
 
-  <!-- FOOTER -->
+  <!-- ══════════════ FOOTER ══════════════ -->
   <footer>
-    <div class="flogo-wrap">
-      <img src="krisat_page_1.png" class="flogo-img" alt="KEF"/>
-      <span class="flogo-name">KRISAT Educare Foundation</span>
+    <div class="footer-brand">
+      <img src="krisat_page_1.png" class="footer-logo" alt="KEF"/>
+      <span class="footer-name">KRISAT Educare Foundation</span>
     </div>
-    <div class="ftag">"Bridging Generations, Building Futures"</div>
-    <div class="fcopy">© 2017–2026 KEF · Faridabad, India</div>
+    <div class="footer-tagline">"Bridging Generations, Building Futures"</div>
+    <div class="footer-copy">© 2017–2026 KEF · Faridabad, India</div>
   </footer>
 
+  <!-- ══════════════ SCRIPTS ══════════════ -->
   <script>
-    // Nav colour switch after hero
-    const nav  = document.getElementById('navbar');
+    /* ── 1. Nav state: transparent over hero, solid when scrolled ── */
+    const nav  = document.getElementById('nav');
     const hero = document.getElementById('hero');
-    new IntersectionObserver(([e]) => nav.classList.toggle('light', !e.isIntersecting), { threshold: 0.05 }).observe(hero);
 
-    // Scroll reveal
-    const revEls = document.querySelectorAll('.reveal');
-    new IntersectionObserver((entries) => {
-      entries.forEach((e, i) => {
+    const navObserver = new IntersectionObserver(([e]) => {
+      if (e.isIntersecting) {
+        nav.classList.add('over-video');
+        nav.classList.remove('scrolled');
+      } else {
+        nav.classList.remove('over-video');
+        nav.classList.add('scrolled');
+      }
+    }, { threshold: 0.05 });
+    navObserver.observe(hero);
+
+    /* ── 2. Video: fade out poster once video is playing ── */
+    const video  = document.getElementById('hero-video');
+    const poster = document.getElementById('hero-poster');
+
+    function tryPlay() {
+      if (!video) return;
+      const p = video.play();
+      if (p !== undefined) {
+        p.then(() => {
+          // Video is playing — fade out the poster
+          setTimeout(() => poster.classList.add('hidden'), 300);
+        }).catch(() => {
+          // Autoplay blocked (e.g. some mobile) — poster stays, that's fine
+        });
+      }
+    }
+
+    if (video) {
+      if (video.readyState >= 3) {
+        tryPlay();
+      } else {
+        video.addEventListener('canplay', tryPlay, { once: true });
+      }
+    }
+
+    /* ── 3. Scroll reveal ── */
+    const revealEls = document.querySelectorAll('.reveal');
+    const revealObs = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
         if (e.isIntersecting) {
-          setTimeout(() => e.target.classList.add('visible'), i * 120);
+          e.target.classList.add('in');
+          revealObs.unobserve(e.target);
         }
       });
-    }, { threshold: 0.1 }).observe(...revEls);
+    }, { threshold: 0.12 });
+    revealEls.forEach(el => revealObs.observe(el));
 
-    document.querySelectorAll('.reveal').forEach((el, i) => {
-      new IntersectionObserver(([e]) => {
-        if (e.isIntersecting) { setTimeout(() => el.classList.add('visible'), i * 100); }
-      }, { threshold: 0.1 }).observe(el);
-    });
+    /* ── 4. Copy bank details — WORKING ── */
+    function copyBankDetails() {
+      const details = [
+        'KRISAT Educare Foundation — Bank Details',
+        '─────────────────────────────────',
+        'Account Name : KRISAT EDUCARE FOUNDATION',
+        'Bank         : IndusInd Bank',
+        'Account No.  : 201030704566',
+        'IFSC Code    : INDB0001501',
+        '─────────────────────────────────',
+        'Contact after transfer: +91 98113 35580 (Lalit Taneja)'
+      ].join('\n');
+
+      const btn      = document.getElementById('copyBtn');
+      const iconEl   = document.getElementById('copy-icon');
+      const textEl   = document.getElementById('copy-text');
+
+      // Try modern clipboard API first
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(details)
+          .then(() => showCopied())
+          .catch(() => fallbackCopy(details));
+      } else {
+        fallbackCopy(details);
+      }
+
+      function fallbackCopy(text) {
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        ta.style.cssText = 'position:fixed;left:-9999px;top:-9999px;opacity:0;';
+        document.body.appendChild(ta);
+        ta.focus();
+        ta.select();
+        try {
+          document.execCommand('copy');
+          showCopied();
+        } catch(e) {
+          textEl.textContent = 'Copy failed — try manually';
+        }
+        document.body.removeChild(ta);
+      }
+
+      function showCopied() {
+        btn.classList.add('success');
+        iconEl.textContent = '✅';
+        textEl.textContent = 'Copied!';
+        setTimeout(() => {
+          btn.classList.remove('success');
+          iconEl.textContent = '📋';
+          textEl.textContent = 'Copy All Details';
+        }, 3000);
+      }
+    }
   </script>
 </body>
 </html>
